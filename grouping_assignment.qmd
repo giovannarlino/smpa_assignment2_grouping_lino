@@ -61,11 +61,11 @@ Take a moment to look at the various categories included for each disbursement.
 
 Without doing any analysis yet, what are three questions you might try to answer using this dataset? Write your narrative answers in the spaces below.
 
-1.  
+1.  What has been the largest and the least amount of disbursement during the campaign? 
 
-2.  
+2.  What was the description of the disbursement for which the campaign spent the most money?  
 
-3.  
+3.  What was the proportion of money spent in organizations versus spent in individuals? 
 
 ## Coding Assignment Questions
 
