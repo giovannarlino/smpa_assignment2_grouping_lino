@@ -98,10 +98,9 @@ Tally the total overall disbursement amounts for each month (distinguishing betw
 
 ```{r}
 
-payments %>% 
-   group_by(disbursement_month, disbursement_year, disbursement_amount) %>% 
-  summarise(newmaximum = max(disbursement_amount)) 
-
+payments %>%
+  filter(disbursement_amount == max(disbursement_amount)) %>% 
+  group_by(disbursement_month, disbursement_year, disbursement_amount)
 
 
 
@@ -111,19 +110,8 @@ Which recipient (recipient_name) was paid the most in the 2020 election cycle?
 
 ```{r}
 
-payments %>% 
-   filter(election_cycle == 2020) %>% 
-   group_by(election_cycle, recipient_name, disbursement_amount) %>% 
-  summarise(maximum=max(disbursement_amount)) %>% 
-  summarise(max(maximum)) 
-
-
-payments %>% 
-   filter(election_cycle == 2020) %>% 
-   group_by(election_cycle, recipient_name, disbursement_amount) %>% 
-  summarise(recipient_name == max(disbursement_amount))
-
-
+payments %>%
+  filter(disbursement_amount == max(disbursement_amount)) 
 
 
 ```
@@ -132,10 +120,10 @@ Look at what this recipient was paid for. What service or good (see the "disburs
 
 ```{r}
 
-
-
-
-
+payments %>% 
+  filter(recipient_name=="AMERICAN MADE MEDIA CONSULTANTS, LLC") %>% 
+  group_by(disbursement_description,recipient_name,disbursement_amount) %>% 
+  arrange(desc(disbursement_amount))
 
 ```
 
