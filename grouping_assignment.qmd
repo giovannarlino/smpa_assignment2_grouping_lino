@@ -81,10 +81,15 @@ How much was spent in the 2017 vs. 2018 reporting year?
 
 ```{r}
 
+payments %>% 
+   filter(report_year == 2017) %>% 
+   group_by(committee_name, report_year) %>% 
+  summarise(sum(disbursement_amount, na.rm = TRUE))
 
-
-
-
+payments %>% 
+   filter(report_year == 2018) %>% 
+   group_by(committee_name, report_year) %>% 
+  summarise(sum(disbursement_amount, na.rm = TRUE))
 
 
 ```
@@ -93,7 +98,9 @@ Tally the total overall disbursement amounts for each month (distinguishing betw
 
 ```{r}
 
-
+payments %>% 
+   group_by(disbursement_month, disbursement_year, disbursement_amount) %>% 
+  summarise(max(disbursement_amount)) 
 
 
 
@@ -104,8 +111,17 @@ Which recipient (recipient_name) was paid the most in the 2020 election cycle?
 
 ```{r}
 
+payments %>% 
+   filter(election_cycle == 2020) %>% 
+   group_by(election_cycle, recipient_name, disbursement_amount) %>% 
+  summarise(maximum=max(disbursement_amount)) %>% 
+  summarise(max(maximum)) 
 
 
+payments %>% 
+   filter(election_cycle == 2020) %>% 
+   group_by(election_cycle, recipient_name, disbursement_amount) %>% 
+  summarise(recipient_name == max(disbursement_amount))
 
 
 
