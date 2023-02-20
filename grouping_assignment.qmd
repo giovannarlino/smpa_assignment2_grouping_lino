@@ -100,7 +100,7 @@ Tally the total overall disbursement amounts for each month (distinguishing betw
 
 payments %>% 
    group_by(disbursement_month, disbursement_year, disbursement_amount) %>% 
-  summarise(max(disbursement_amount)) 
+  summarise(newmaximum = max(disbursement_amount)) 
 
 
 
@@ -143,8 +143,9 @@ What's the most common category overall (see "disbursement_description") the cam
 
 ```{r}
 
-
-
+payments %>% 
+  group_by()
+  
 
 
 
@@ -155,8 +156,11 @@ Who were the 5 biggest recipients of campaign spending on "LEGAL CONSULTING"..?
 ```{r}
 
 
-
-
+payments %>% 
+  filter(disbursement_description=="LEGAL CONSULTING") %>% 
+  group_by(recipient_name, disbursement_amount) %>% 
+  arrange(desc(disbursement_amount)) %>% 
+  head(5)
 
 
 
@@ -167,9 +171,15 @@ Who are the top 5 individuals (vs. organization) were paid by the campaign commi
 
 ```{r}
 
+payments %>% 
+  filter(entity_type_desc=="INDIVIDUAL") %>% 
+  arrange(desc(disbursement_amount)) %>% 
+  head(5)
 
-
-
+payments %>% 
+  filter(entity_type_desc=="ORGANIZATION") %>% 
+  arrange(desc(disbursement_amount)) %>% 
+  head(5)
 
 
 
