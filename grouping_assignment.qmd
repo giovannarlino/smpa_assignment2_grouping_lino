@@ -138,10 +138,16 @@ Look at what this recipient was paid for. What service or good (see the "disburs
 
 ```{r}
 
+#I filtered the name of the recipient that was paid the largest amount of money as per the last question
+# I grouped it by its description and name and disbursement amount 
+# I arranged it in descending order of the disbursement to find which service they were most paid for. 
+
 payments %>% 
   filter(recipient_name=="AMERICAN MADE MEDIA CONSULTANTS, LLC") %>% 
   group_by(disbursement_description,recipient_name,disbursement_amount) %>% 
   arrange(desc(disbursement_amount))
+
+#The service the recipient was most paid for was PLACED MEDIA 
 
 ```
 
@@ -150,7 +156,10 @@ What's the most common category overall (see "disbursement_description") the cam
 ```{r}
 
 payments %>% 
-  group_by()
+  group_by(disbursement_description) %>% 
+  summarise(count = n()) %>% 
+
+mostcommon <-
   
 
 
