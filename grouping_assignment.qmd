@@ -81,15 +81,23 @@ How much was spent in the 2017 vs. 2018 reporting year?
 
 ```{r}
 
+#I filtered 2 sections of the payments dataset by year. First, 2017 and then 2018. 
+#Then, I grouped by the commitee name and report year 
+#Then, I used the sumarise formula to sum the disbursement amount for each year
+
 payments %>% 
    filter(report_year == 2017) %>% 
    group_by(committee_name, report_year) %>% 
   summarise(sum(disbursement_amount, na.rm = TRUE))
 
+#Amount spent in the 2017 reporting year was 16888149	
+
 payments %>% 
    filter(report_year == 2018) %>% 
    group_by(committee_name, report_year) %>% 
   summarise(sum(disbursement_amount, na.rm = TRUE))
+
+#Amount spent in the 2018 reporting year was 37406905	
 
 
 ```
@@ -97,6 +105,10 @@ payments %>%
 Tally the total overall disbursement amounts for each month (distinguishing between say, Oct. 2018 v. Oct. 2019). In which month was spending the highest?
 
 ```{r}
+
+#I grouped it by month and year of disbursement and summarised the respective amount for each combination
+#of month and year. Then, I used the arrange for the descending order of the disbursement amount to 
+#find the highest spending in the respective month & year combination
 
 payments %>%
   group_by(disbursement_month, disbursement_year) %>% 
@@ -113,6 +125,11 @@ Which recipient (recipient_name) was paid the most in the 2020 election cycle?
 
 payments %>%
   filter(disbursement_amount == max(disbursement_amount)) 
+
+#I filtered and used the max function to find the largest amount of money that was paid and who 
+#was the recipient
+
+#The recipient was the AMERICAN MADE MEDIA CONSULTANTS, LLC. 
 
 
 ```
@@ -144,6 +161,11 @@ Who were the 5 biggest recipients of campaign spending on "LEGAL CONSULTING"..?
 
 ```{r}
 
+#I filtered for the disbursement description only to show legal consulting
+#Then, I selected for it to be grouped by the recipient name and the respective amount being disbursed 
+#Then, I selected it to be arranged from descending order of the disbursement to find the highest values 
+#Then, I used the function head to select the TOP 5 values 
+
 
 payments %>% 
   filter(disbursement_description=="LEGAL CONSULTING") %>% 
@@ -151,6 +173,16 @@ payments %>%
   arrange(desc(disbursement_amount)) %>% 
   head(5)
 
+
+# Top 5 biggest recipients of campaign spending on "LEGAL CONSULTING"
+  #JONES DAY 	
+  #JONES DAY 	
+  #JONES DAY 	
+  #KASOWITZ, BENSON, TORRESS & FRIEDMAN	
+  #JONES DAY
+
+#Those are the Top 5. JONES DAY shows up multiple times because the disbursement dates 
+# differ by month and year from when the money is being paid to the recipient
 
 
 ```
@@ -160,15 +192,33 @@ Who are the top 5 individuals (vs. organization) were paid by the campaign commi
 
 ```{r}
 
+#I filtered for both the individual and the organization, then I arranged to find the maximum values
+#of the disbursement amount by descending order, and used the Head function to find the Top 5 ones. 
+#I did two sets to separate individual from organization 
+
 payments %>% 
   filter(entity_type_desc=="INDIVIDUAL") %>% 
   arrange(desc(disbursement_amount)) %>% 
   head(5)
 
+# Top 5 individuals paid by the campaign comittee
+  #GIGICOS, GEORGE		
+  #CARR, CHRISTOPHER	
+  #DOLLMAN, SEAN		
+  #GLASSNER, MICHAEL	
+  #NEWLAND, DEE EDWARD
+
 payments %>% 
   filter(entity_type_desc=="ORGANIZATION") %>% 
   arrange(desc(disbursement_amount)) %>% 
   head(5)
+
+# Top 5 organizations paid by the campaign comittee
+  #AMERICAN MADE MEDIA CONSULTANTS, LLC		
+  #ACE SPECIALTIES		
+  #AMERICAN EXPRESS	
+  #AMERICAN MADE MEDIA CONSULTANTS, LLC		
+  #AMERICAN MADE MEDIA CONSULTANTS, LLC
 
 
 
@@ -179,9 +229,15 @@ For the indvidual who was paid the most, which payment category (disbursement_de
 
 ```{r}
 
+#I filtered for the results only to show the entity description INDIVIDUAL and arranged it in descending 
+#order of disbursement. That way, I could find what was the largest amount of money paid to this individual 
+#and the category the payment was in. 
 
+payments %>% 
+  filter(entity_type_desc=="INDIVIDUAL") %>% 
+   arrange(desc(disbursement_amount)) 
 
-
+#The INDIVIDUAL who was paid the most was Gigicos,George. He was paid 30000.00 for the category of EVENT CONSULTING.  
 
 
 
