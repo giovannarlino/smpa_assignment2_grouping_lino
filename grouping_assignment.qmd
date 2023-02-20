@@ -144,7 +144,7 @@ Look at what this recipient was paid for. What service or good (see the "disburs
 
 payments %>% 
   filter(recipient_name=="AMERICAN MADE MEDIA CONSULTANTS, LLC") %>% 
-  group_by(disbursement_description,recipient_name,disbursement_amount) %>% 
+  group_by(disbursement_description, disbursement_amount) %>% 
   arrange(desc(disbursement_amount))
 
 #The service the recipient was most paid for was PLACED MEDIA 
@@ -155,14 +155,15 @@ What's the most common category overall (see "disbursement_description") the cam
 
 ```{r}
 
-payments %>% 
-  group_by(disbursement_description) %>% 
-  summarise(count = n()) %>% 
-
-mostcommon <-
+#I first grouped the disbursement description, and summarised the amount of times it showed up on the dataset 
+#Then I arranged the count column per desceding order to find the description that showed up the most time in the dataset. 
   
+payments %>% 
+  group_by (disbursement_description) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
 
-
+#The most common category overall that the campaign has spent money on was in MERCHANT FEES 
 
 ```
 
