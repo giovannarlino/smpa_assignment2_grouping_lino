@@ -99,10 +99,11 @@ Tally the total overall disbursement amounts for each month (distinguishing betw
 ```{r}
 
 payments %>%
-  filter(disbursement_amount == max(disbursement_amount)) %>% 
-  group_by(disbursement_month, disbursement_year, disbursement_amount)
+  group_by(disbursement_month, disbursement_year) %>% 
+  summarise(disbursement_amount) %>% 
+  arrange(desc(disbursement_amount))
 
-
+#The highest spending was on month 10th of the year 2018 in the amount of 3390990.85. 
 
 ```
 
